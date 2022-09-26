@@ -1,0 +1,13 @@
+{
+  "expo": {
+    "name": "chatApp",
+    "slug": "chatApp",
+    "owner":"afcharidesbotsy",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "chatApp"
+  
+}

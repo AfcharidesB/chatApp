@@ -4,6 +4,7 @@ import { useState,useEffect}  from "react";
 import {collection, getFirestore, getDocs} from "firebase/firestore"
 import {getAuth, createUserWithEmailAndPassword, onAuthStateChanged, signOut, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, FacebookAuthProvider} from "firebase/auth";
 import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const firebaseConfig = {
   apiKey: "AIzaSyDUGp6zPeBRJDcVgzpKJ07SBE34BfH7Lyw",
   authDomain: "chatapp-6d7be.firebaseapp.com",
@@ -63,9 +64,9 @@ export const signInWithGoogle = () => {
     const email = result.user.email
     const profilePic = result.user.photoURL
     navigation.navigate("Profile")
-    localStorage.setItem("utilisateur",name)
-    localStorage.setItem("email",email)
-    localStorage.setItem("profilePhoto",profilePic)
+    AsyncStorage.setItem("utilisateur",name)
+    AsyncStorage.setItem("email",email)
+   AsyncStorage.setItem("profilePhoto",profilePic)
 
 
   }).catch((error)=>{

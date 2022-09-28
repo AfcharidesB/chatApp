@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import {  TextInput, StyleSheet, View,Image, Text, TouchableOpacity  } from 'react-native'
-import { KeyboardAvoidingView } from "react-native-web";
-import { LinearGradient } from 'expo-linear-gradient';
-import {signUp,login, logout, useAuth, signInWithGoogle, signInwithFacebook} from "./firebase"
-import App from "../App";
+
+//import { useAuth, signInWithGoogle, signInwithFacebook} from "./firebase"
+
 import { useNavigation } from "@react-navigation/native";
+
 
 
 
@@ -12,7 +12,7 @@ import { useNavigation } from "@react-navigation/native";
 
 const LoginScreen = () => {
 const navigation = useNavigation();
-const currentUser = useAuth()
+//const currentUser = useAuth()
 const [email, setEmail] = useState ('')
 const [motdepasse, setMotdepasse] = useState ('')
 const [name, setName] = useState('')
@@ -30,7 +30,7 @@ async function Login (){
     await login(email, motdepasse)
    
     navigation.navigate("Profile")
-    alert("bouton appuyer")
+    console.log("login")
   } catch  {
     alert ("Utilisateur ou mot de passe incorrecte")
   }
@@ -38,13 +38,13 @@ async function Login (){
 }
 
 
-
+/*
 async function Logout() {
   setLoading(true)
    try {
 
     await logout()
-    localStorage.clear()
+    AsyncStorage.clear()
     
    } catch  {
       alert("Erreur ! ")
@@ -52,11 +52,11 @@ async function Logout() {
    setLoading(false)
 }
 
-
+*/
   return(
       
     
-    <KeyboardAvoidingView style={styles.bg}>
+    <View style={styles.bg}>
 
       
         <View style={styles.container}>
@@ -75,28 +75,17 @@ async function Logout() {
       <TouchableOpacity
       onPress={Login}
       style={styles.button}
-      disabled = {loading ||currentUser }
+     
       >
 
       <Text style = {styles.buttonText}>Se connecter</Text>
   
       
       </TouchableOpacity>
-    <Text>connecter en tant que : {currentUser?.name}</Text>
-    <Text>{localStorage.getItem("utilisateur")}</Text>
+    
    
-    <img src={localStorage.getItem("profilePhoto")} ></img>
 
-    <TouchableOpacity
-      onPress={Logout}
-      disabled={loading || !currentUser}
-      
-      >
-
-      <Text style = {styles.buttonText}>Se déconnecter</Text>
-  
-      
-      </TouchableOpacity>
+    
       
  
       <Text style={styles.choiceText}> Se connecter avec</Text>
@@ -106,7 +95,7 @@ async function Logout() {
 
 
    <TouchableOpacity
-      onPress={signInWithGoogle}
+      onPress={{}}
       style={styles.buttonGoogle}
       >
 
@@ -116,11 +105,11 @@ async function Logout() {
       </TouchableOpacity>
 
       <TouchableOpacity
-      onPress={signInwithFacebook}
+      onPress={{}}
       style={styles.buttonFb}
       >
 
-      <Text style = {styles.buttonText}><Image style={styles.logo} source={require('../assets/fb.png')} ></Image> Facebook</Text>
+      <Text style = {styles.buttonText}> Facebook</Text>
 
       
       </TouchableOpacity>
@@ -144,7 +133,7 @@ async function Logout() {
 
     </View>
 
-    </KeyboardAvoidingView>
+    </View>
   
 
   )
@@ -173,25 +162,24 @@ backgroundColor : "darkGray",
   textTitle :{
     fontSize : 20,
     textAlign : "center",
-    fontWeight : 700,
+   
     color : "white",
     marginBottom : 50,
     
   },
 
   socials :{
-   flex : 1 ,
-   alignSelf : "center",
-   flexDirection  : "row  ",
-  width : "90%",
-  justifyContent : "center",
-  marginTop : 250 ,
+    flexDirection : "row",
+    alignSelf : "center",
+    width : "90%",
+    justifyContent : "center",
+    marginTop : 250 ,
 
   },
 
   buttonCreate : {
     color : "purple",
-    fontWeight : 600,
+    
     marginBottom : 50,
     
   },
@@ -199,11 +187,11 @@ backgroundColor : "darkGray",
 
 
   input : {
-    width : "50%",
+    width : "90%",
     fontSize : 16  ,
-    fontWeight : 500,
+   
     height : 40,
-    borderRadius :50 , 
+    borderRadius :5 , 
     
     marginVertical : 10,
     color :"grey" ,
@@ -276,27 +264,27 @@ backgroundColor : "darkGray",
     borderColor : "#0782F9",
     borderWidth : 2,
     color : "#0782F9",
-    fontWeight : 700,
+ 
     fontSize : 16,
 
 
   },
   buttonOutlineText : {
     color : "#0782F9",
-    fontWeight : 700,
+   
     fontSize : 16,
 
 
   },
 buttonText : {
   color : "dark",
-  fontWeight : 700,
+  
   fontSize : 16,
 },
 
 choiceText : {
   color : "grey",
-  fontWeight : 700,
+  
   marginBottom  : -250, 
   marginTop : 250,
   

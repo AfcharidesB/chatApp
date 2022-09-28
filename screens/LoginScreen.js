@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import {  TextInput, StyleSheet, View,Image, Text, TouchableOpacity  } from 'react-native'
 
-//import { useAuth, signInWithGoogle, signInwithFacebook} from "./firebase"
+import {login, useAuth, signInWithGoogle, signInwithFacebook} from "./firebase"
 
 import { useNavigation } from "@react-navigation/native";
 
@@ -30,7 +30,7 @@ async function Login (){
     await login(email, motdepasse)
    
     navigation.navigate("Profile")
-    console.log("login")
+    
   } catch  {
     alert ("Utilisateur ou mot de passe incorrecte")
   }

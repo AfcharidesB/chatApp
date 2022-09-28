@@ -9,10 +9,10 @@ import { useNavigation } from "@react-navigation/native";
 
 const UserProfil = () => {
     const navigation = useNavigation();
-   // const [loading, setLoading] = useState (false)
+   const [loading, setLoading] = useState (false)
    // const [name, setName] = useState('')
-    //const currentUser = useAuth()
-   /* async function Logout() {
+    const currentUser = useAuth()
+   async function Logout() {
         setLoading(true)
          try {
       
@@ -26,17 +26,20 @@ const UserProfil = () => {
 
       async function messageView() {
         navigation.navigate("Chat")
-      }*/
+      }
       
     return(
 
         <View>
-            <Text>connecter en tant que : </Text>
-            <Text>
+           
+            <Text style={styles.headerProfil}>
                 Bienvenu sur votre Profile
+                 
             </Text>
+            <Text>connecter en tant que : {currentUser ?.email} </Text>
+           
             <TouchableOpacity
-      onPress={{}}
+      onPress={Logout}
       
       
       >
@@ -47,7 +50,7 @@ const UserProfil = () => {
       </TouchableOpacity>
 
       <TouchableOpacity
-        onPress={{}}
+        onPress={messageView}
       
       
       >
@@ -59,5 +62,19 @@ const UserProfil = () => {
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+  headerProfil:{
+    
+    textAlign: "center",
+    fontSize : 15,
+    fontWeight :50,
+    marginTop: 50,
+
+  }
+})
+
+
+
 
 export default UserProfil

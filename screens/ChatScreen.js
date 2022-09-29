@@ -1,7 +1,8 @@
-import { Text, TouchableOpacity, View, Image } from 'react-native'
-import React, { useState, useEffect, useLayoutEffect, useCallback, useRef } from "react";
+import { Text, TouchableOpacity, View, Image,SafeAreaView, StyleSheet,ScrollView } from 'react-native'
+import React, { useState, useEffect, useLayoutEffect, useCallback, useRef, } from "react";
 import Message from './Message';
-import { GiftedChat } from 'react-native-gifted-chat';
+
+
 import {query, collection, orderBy, onSnapshot, where}from 'firebase/firestore'
 import{db, auth, useAuth} from './firebase'
 import { useNavigation } from "@react-navigation/native";
@@ -49,17 +50,21 @@ const navigation = useNavigation();
   return(
   
   <>
-  <main>
-    {messages && messages.map((message)=>
-        <Message key={message.id} message={message} />
+  <SafeAreaView style={styles.bg}>
+    <ScrollView>
+         {messages && messages.map((message)=>
+      <Message key={message.id} message={message} />
     
     )}
-
-  </main>
- 
-  <SendMessage scroll={scroll}>
+ <SendMessage scroll={scroll} >
 
   </SendMessage>
+    </ScrollView>
+ 
+
+  </SafeAreaView>
+ 
+ 
     
   
   </>
@@ -68,4 +73,13 @@ const navigation = useNavigation();
   )
 }
 
+const styles = StyleSheet.create({
+  
+  bg:{
+    backgroundColor : "#1b1f24", 
+   
+  },
+ 
+
+})
 export default Chat

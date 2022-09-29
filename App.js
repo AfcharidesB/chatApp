@@ -21,9 +21,7 @@ const App = () => {
 
       <Stack.Screen  name="Accueil"component={LoginScreen} options ={{headerShown: false}} />
        <Stack.Screen name="Register" component={Register} />
-    
-      <Stack.Screen name="Profile" component={UserProfil} options ={{headerShown: false}}  />
-
+       <Stack.Screen name="Profile" component={UserProfil}  />
       <Stack.Screen name="Chat" component={ChatScreen} />
      
 

@@ -150,8 +150,8 @@ const styles = StyleSheet.create({
 
   },
   bg:{
-    backgroundColor : "white",
-    marginBottom : 40,
+    backgroundColor : "#1b1f24",
+    
   }
   ,
   Screens:{
@@ -162,9 +162,9 @@ backgroundColor : "darkGray",
   textTitle :{
     fontSize : 20,
     textAlign : "center",
-   
     color : "white",
     marginBottom : 50,
+    marginTop : 50,
     
   },
 
@@ -179,8 +179,7 @@ backgroundColor : "darkGray",
 
   buttonCreate : {
     color : "purple",
-    
-    marginBottom : 50,
+    marginBottom : 150,
     
   },
 
@@ -189,10 +188,9 @@ backgroundColor : "darkGray",
   input : {
     width : "90%",
     fontSize : 16  ,
-   
+    opacity : 0.4,
     height : 40,
     borderRadius :5 , 
-    
     marginVertical : 10,
     color :"grey" ,
     background : "none",
@@ -215,7 +213,7 @@ backgroundColor : "darkGray",
   },
 
   button : {
-    backgroundColor : '#ffba08',
+    backgroundColor : '#c2f7e8',
     alignItems : "center",
    borderRadius : 50,
     padding : 10,
@@ -229,7 +227,7 @@ backgroundColor : "darkGray",
 
   buttonGoogle  : {
 
-    backgroundColor : '#ffba08',
+    backgroundColor : '#c2f7e8',
     alignItems : "center",
     borderRadius : 50,
      padding : 5,
@@ -245,7 +243,7 @@ backgroundColor : "darkGray",
   buttonFb : {
     
     flexDirection  : "row  ",
-    backgroundColor : '#ffba08',
+    backgroundColor : '#c2f7e8',
     alignItems : "center",
     justifyContent : "center",
     borderRadius : 50,
@@ -278,15 +276,13 @@ backgroundColor : "darkGray",
   },
 buttonText : {
   color : "dark",
-  
   fontSize : 16,
 },
 
 choiceText : {
   color : "grey",
-  
-  marginBottom  : -250, 
-  marginTop : 250,
+  marginBottom  : -230, 
+  marginTop : 150,
   
 },
 

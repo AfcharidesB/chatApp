@@ -1,4 +1,4 @@
-import { View, Text, Button } from 'react-native'
+import { View, Text, TouchableOpacity } from 'react-native'
 import React,{useEffect, useState} from 'react'
 import{db, auth} from './firebase'
 import { collection, query, where, getDocs, setDoc, updateDoc, doc, serverTimestamp, getDoc, onSnapshot, QuerySnapshot} from "firebase/firestore";
@@ -6,38 +6,53 @@ import { useContext } from 'react';
 import { AuthContext } from './AuthContext';
 import UserList from './UserList';
 import { async } from '@firebase/util';
+
 const Users = () => {
-    const [users, setUsers] = useState([null])
+    const [users, setUsers] = useState([])
     const {currentUser}= useContext(AuthContext)
-    const printUsers = (async () =>{
-        const usersRef = collection(db, 'users');
-        const q = query(usersRef, where('displayName', '!=', [auth.currentUser.displayName]))
-        let users = []
-        try {
-            const querySnapshot = await getDocs(q);
-            querySnapshot.forEach(doc =>{
-            setUsers(doc.data())
-            console.log(doc.id, " => ", doc.data());
+    useEffect(()=>{
+        const userRef = collection(db, "userChats")
+        const q = query(userRef, where("uid", 'not-in', [auth.currentUser.uid]))
+
+        const unsub = onSnapshot(q,(querySnapshot)=>{
+            let users = []
+            querySnapshot.forEach((doc)=>{
+                users.push(doc.data())
             })
-           
-        
-       
-        } catch (error) {
+            setUsers(users)
+        })
+        return() =>unsub()
+    },[])
+      console.log(users);   
+
+     async function createRoom() {
+        const {uid}=  auth.currentUser
+        await setDoc(doc(db, "userChats", uid), {
+           uid
+          
             
-        }
+          });
+      }
+          
        
-   }
-  )
+      
+       
+        
+      
+       
+   
+  
 
 
   return (
     <View>
-        {
-            users.map(user =><Text key={user} user={user} >{user}</Text>)
-        }
-        
+    
        
-     <Button title='Voir les amis ' onPress={printUsers}></Button>
+        <TouchableOpacity>
+          {users.map((user)=>
+                  <Text> {user.displayName}</Text> 
+                    )}
+        </TouchableOpacity>
     </View>
     
   )

@@ -42,8 +42,8 @@ async function Signin (){
 
   try {
     const {uid, email}=  auth.currentUser
-    await setDoc(doc(db, "userChats",uid),{})
-    await setDoc(doc(db, "users", uid), {
+    //await setDoc(doc(db, "userChats",uid),{})
+    await setDoc(doc(db, "userChats", uid), {
       displayName: name,
       email: email,
       uid

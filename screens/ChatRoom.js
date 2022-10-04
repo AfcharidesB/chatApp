@@ -3,7 +3,7 @@ import React from 'react'
 import { TextInput, Button} from 'react-native-web'
 import { useState } from 'react'
 import { collection, query, where, getDocs, setDoc, updateDoc, doc, serverTimestamp, getDoc, } from "firebase/firestore";
-import{db} from './firebase'
+import{db, auth} from './firebase'
 import { TouchableOpacity } from 'react-native';
 import { useContext } from 'react';
 import { AuthContext } from './AuthContext';
@@ -12,7 +12,7 @@ const ChatRoom = () => {
     const [user, setUser] = useState([null])
     const {currentUser}= useContext(AuthContext)
    const handleSearch = async () => {
-    const q = query(collection(db, "users"), where("displayName", '==',  username))
+    const q = query(collection(db, "userChats"), where("uid", 'not-in'  [auth.currentUser.uid]))
 
     try {
         const querySnapshot = await getDocs(q);
@@ -27,12 +27,13 @@ const ChatRoom = () => {
    }
 
    const handleSelect = async () => {
-    const combinedId = currentUser.uid > user.uid ? currentUser.uid + user.uid : user.uid + currentUser.uid 
+    
+   /* const combinedId = currentUser.uid > user.uid ? currentUser.uid + user.uid : user.uid + currentUser.uid 
     try {
          const res = await getDoc(doc(db,"chats", combinedId))
          if(!res.exists()){
          
-            await updateDoc(doc(db,"userChats", currentUser.uid)),{
+            await updateDoc(doc(db,"userChats", currentUser.uid), where("displayName" , '!=', displayName)),{
             [combinedId+".userInfo"]: {
                 uid:user.uid,
                 displayName:user.displayName},
@@ -53,7 +54,7 @@ const ChatRoom = () => {
         
     }
    setUser(null)
-   setUsername("")
+   setUsername("")*/
    }
    
 

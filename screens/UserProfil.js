@@ -4,7 +4,7 @@ import { AntDesign } from '@expo/vector-icons';
 import {signUp,login, logout, useAuth, signInWithGoogle, signInwithFacebook} from "./firebase"
 import App from "../App";
 import { useNavigation } from "@react-navigation/native";
-
+import ChatScreen from './ChatScreen';
 
 const UserProfil = () => {
     const navigation = useNavigation();
@@ -47,20 +47,26 @@ const UserProfil = () => {
     return(
 
         <View style={styles.bg}>
-          
-             <Image source={require('../assets/man.png')} style={styles.avatar} >
+          <View style = {styles.components}>
+            <Image source={require('../assets/man.png')} style={styles.avatar} />
+            <ChatScreen style = {styles.chatscreen}></ChatScreen>
               
-            </Image>
+          </View>
+           
+             
+          
+         
+          
+          
+             
             <Text style={styles.name}>Afcharides Botsy</Text>
             <AntDesign name="calendar" size={40} color="#28e6b4" style={styles.calendar} />
        
             <AntDesign name="mail" size={40} color="#28e6b4" style={styles.mail}/>
             <Text>{currentUser ?.email}</Text>
+            <Text>{currentUser ?.name}</Text>
 
-            <TouchableOpacity style={styles.button}>
-
-              <Text style = {styles.buttonText}>Modifier</Text>
-            </TouchableOpacity>
+           
          
            
             
@@ -71,8 +77,16 @@ const UserProfil = () => {
 const styles = StyleSheet.create({
  
   bg:{
-    backgroundColor : "#1b1f24", 
    
+   
+  },
+  chatscreen:{
+    width: 100,
+  },
+
+  components:{
+    
+    flexDirection: "row",
   },
  
   avatar :{

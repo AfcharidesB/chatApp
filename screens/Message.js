@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View , Text} from 'react-native'
 import { auth } from './firebase';
 import { useAuth} from "./firebase"
-import { GiftedChat } from 'react-native-gifted-chat';
+
 const Message =({message})=>{
   const currentUser = useAuth()
     const isMyMessage =()=>{
@@ -15,7 +15,7 @@ const Message =({message})=>{
       
 
        
-      < View style={[styles.message, {backgroundColor : isMyMessage() ? "#395dff" : "#e5e5ea ",
+      < View style={[styles.message, {backgroundColor : isMyMessage() ? "#e76f51" : "#ef233c ",
       width: "30%",
       marginRight : isMyMessage() ? 0 : 50,
       marginLeft : isMyMessage() ? 270 : 0,
@@ -23,8 +23,8 @@ const Message =({message})=>{
       borderRadius: 5,
       
       }]}>
-        <Text >{message.name}</Text>
-        <Text style={[styles.text,{color : isMyMessage() ? "white" : "dark",
+        <Text ></Text>
+        <Text style={[styles.text,{color : isMyMessage() ? "white" : "black",
         textAlign:"right",
         marginLeft : isMyMessage() ? 0 : 0,
         fontSize : 16  ,
@@ -54,13 +54,7 @@ shadowRadius: 3.84,
 elevation: 5,
 },
 
-sent: { 
-  backgroundColor : "#395dff",
-  
-},
-received : {
-  backgroundColor :"#e5e5ea ",
-}
+
 
 } )
     

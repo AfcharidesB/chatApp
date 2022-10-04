@@ -5,7 +5,7 @@ import{auth, db} from './firebase'
 import{addDoc, collection, serverTimestamp} from 'firebase/firestore'
 import { Ionicons } from '@expo/vector-icons';
 
-const SendMessage = ({scroll}) => {
+const SendMessage = ({}) => {
 
     const [input, setinput] = useState('')
     const sendMessage = async (e)=>{
@@ -31,7 +31,6 @@ const SendMessage = ({scroll}) => {
         })
   
         setinput('')
-        scroll.current.scrollIntoView ({behaviour:'smooth'})
       
     }
   return (

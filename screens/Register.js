@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import {  TextInput, StyleSheet, View, Text, TouchableOpacity  } from 'react-native'
-import {signUp,login, logout, useAuth} from "./firebase"
+import {signUp,login, logout, useAuth, auth, db, storage} from "./firebase"
+import{ setDoc, doc} from 'firebase/firestore'
 import App from "../App";
 import { useNavigation } from "@react-navigation/native";
-
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { updateProfile } from "firebase/auth";
 const LoginScreen = () => {
 
 const [email, setEmail] = useState ('')
 const [motdepasse, setMotdepasse] = useState ('')
-//const [name, setName] = useState('')
+const [name, setName] = useState('')
 const [loading, setLoading] = useState (false)
 //const currentUser = useAuth();
 const navigation = useNavigation();
@@ -26,15 +28,59 @@ const navigation = useNavigation();
 */
 async function Signin (){
   setLoading (true)
+  
   try {
+    
     await signUp(email, motdepasse)
-    navigation.navigate("Profile")
+    
+    navigation.navigate("ChatRoom")
+    
+
   } catch  {
     alert ("Email déja utilisé")
   }
-  setLoading (false)
-}
 
+  try {
+    const {uid, email}=  auth.currentUser
+    await setDoc(doc(db, "userChats",uid),{})
+    await setDoc(doc(db, "users", uid), {
+      displayName: name,
+      email: email,
+      uid
+    });
+    console.log("Document written with ID: ");
+    alert(name)
+  } catch (e) {
+    console.error("Error adding document: ", );
+  } 
+ 
+ 
+  
+  setLoading (false)
+  const storageRef = ref(storage, name);
+  
+  const uploadTask = uploadBytesResumable(storageRef);
+  
+
+  uploadTask.on(
+    
+    (error) => {
+      // Handle unsuccessful uploads
+    }, 
+    () => {
+      // Handle successful uploads on complete
+      // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+      getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+       await updateProfile({
+        displayName: name,
+        photoURL: downloadURL,
+       })
+      });
+    }
+    
+  );
+  
+}
 
 
 
@@ -46,7 +92,8 @@ async function Signin (){
       
         <View style={styles.container}>
     <Text style={styles.textTitle}>Créer un compte</Text>
-    
+    <TextInput type="file" placeholder="Photo"></TextInput>
+    <TextInput placeholder="Nom d'utilisateur" style={styles.input} value = {name} onChangeText = {text => setName(text)}/>
      <TextInput placeholder="Email" style={styles.input} value = {email} onChangeText = {text => setEmail(text)}>
 
      </TextInput>

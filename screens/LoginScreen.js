@@ -29,7 +29,7 @@ async function Login (){
   try {
     await login(email, motdepasse)
    
-    navigation.navigate("Profile")
+    navigation.navigate("UserList")
     
   } catch  {
     alert ("Utilisateur ou mot de passe incorrecte")
@@ -38,28 +38,14 @@ async function Login (){
 }
 
 
-/*
-async function Logout() {
-  setLoading(true)
-   try {
 
-    await logout()
-    AsyncStorage.clear()
-    
-   } catch  {
-      alert("Erreur ! ")
-   } 
-   setLoading(false)
-}
-
-*/
   return(
       
     
     <View style={styles.bg}>
 
       
-        <View style={styles.container}>
+        <View className="component bg-violet-500 hover:bg-violet-600 active:bg-violet-700">
     <Text style={styles.textTitle}>Se connecter</Text>
    
      <TextInput placeholder="Email" style={styles.input} value = {email} onChangeText = {text => setEmail(text)}>

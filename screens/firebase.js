@@ -3,7 +3,8 @@ import { initializeApp } from "firebase/app";
 import { useState,useEffect}  from "react";
 import {collection, getFirestore, getDocs} from "firebase/firestore"
 import {getAuth, createUserWithEmailAndPassword, onAuthStateChanged, signOut, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, FacebookAuthProvider} from "firebase/auth";
-import { useNavigation } from "@react-navigation/native";
+
+import { getStorage, ref } from "firebase/storage";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 const firebaseConfig = {
   apiKey: "AIzaSyDUGp6zPeBRJDcVgzpKJ07SBE34BfH7Lyw",
@@ -19,17 +20,27 @@ const app = initializeApp(firebaseConfig);
 
 export const auth = getAuth(app);
 export const  db = getFirestore(app);
+export const storage = getStorage();
 
 
 
-
-export function signUp (email, password){
+export function signUp (email, password ){
   return(
-    createUserWithEmailAndPassword(auth,email, password)
+    createUserWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    // Signed in 
+    const user = userCredential.user;
+    
+    // ...
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // ..
+  })
   )
 
 }
-
 
 export function login (email, password){
   return(

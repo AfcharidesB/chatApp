@@ -4,16 +4,29 @@ import Message from './Message';
 
 
 import {query, collection, orderBy, onSnapshot, where}from 'firebase/firestore'
-import{db, auth, useAuth} from './firebase'
+import{db, auth, useAuth,logout} from './firebase'
 import { useNavigation } from "@react-navigation/native";
 import { AntDesign } from '@expo/vector-icons';
 import SendMessage from './SendMessage';
 const Chat = ({}) =>{
 const [messages, setmessages] = useState([])
+const [loading, setLoading] = useState (false)
 
 const scroll = useRef();
 const user= useAuth(auth)
 
+async function Logout() {
+  setLoading(true)
+   try {
+
+    await logout()
+    navigation.navigate("Accueil")
+    
+   } catch  {
+      alert("Erreur ! ")
+   } 
+   setLoading(false)
+}
 useEffect(() =>{
   const q = query(collection(db, 'messages'), orderBy('timestamp'))
   const unsubscribe = onSnapshot(q,(querySnapshot)=>{
@@ -30,18 +43,14 @@ useEffect(() =>{
 
 
   
-
-
 const navigation = useNavigation();
   useLayoutEffect(() =>navigation.setOptions({
     headerRight: () =>(
       <TouchableOpacity  style={{marginRight:10}}
       >
-<AntDesign name="logout" size={24} color="grey" />
+<AntDesign name="logout" size={24} color="grey"  onPress={Logout}/>
       </TouchableOpacity>
     )
-    
-   
     
   })
   )
@@ -75,10 +84,7 @@ const navigation = useNavigation();
 
 const styles = StyleSheet.create({
   
-  bg:{
-    backgroundColor : "#1b1f24", 
-   
-  },
+
  
 
 })

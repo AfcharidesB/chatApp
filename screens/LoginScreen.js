@@ -29,7 +29,7 @@ async function Login (){
   try {
     await login(email, motdepasse)
     
-    navigation.navigate("UserList")
+    navigation.navigate("Home")
     
   } catch  {
     alert ("Utilisateur ou mot de passe incorrecte")
@@ -41,11 +41,11 @@ async function Login (){
 
   return(
       
-    
+    <View  style={styles.window}>
     <View style={styles.bg}>
 
       
-        <View className="component bg-violet-500 hover:bg-violet-600 active:bg-violet-700">
+        <View >
     <Text style={styles.textTitle}>Se connecter</Text>
    
      <TextInput placeholder="Email" style={styles.input} value = {email} onChangeText = {text => setEmail(text)}>
@@ -120,7 +120,7 @@ async function Login (){
     </View>
 
     </View>
-  
+  </View>
 
   )
 }
@@ -135,8 +135,18 @@ const styles = StyleSheet.create({
     
 
   },
+  window:{
+   backgroundColor : "#f8f9fa",
+   
+  },
   bg:{
-    backgroundColor : "#1b1f24",
+    backgroundColor : "#FFFFFF",
+    width : "50%",
+   borderRadius : "5px",
+   marginStart  : 500,
+   marginTop : 100,
+   marginBottom : 50,
+    
     
   }
   ,
@@ -166,6 +176,8 @@ backgroundColor : "darkGray",
   buttonCreate : {
     color : "purple",
     marginBottom : 150,
+    fontSize : 16  ,
+    fontWeight : 'bold'
     
   },
 
@@ -174,21 +186,15 @@ backgroundColor : "darkGray",
   input : {
     width : "90%",
     fontSize : 16  ,
-    opacity : 0.4,
+    
     height : 40,
     borderRadius :5 , 
     marginVertical : 10,
-    color :"grey" ,
-    background : "none",
-    backgroundColor : "white",
+    marginLeft  : 45,
+    backgroundColor : "#e9ecef",
     padding : 10,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 3.84,
-
+    borderColor : "#e9ecef",
     
- 
   }, 
 
   buttonContainer :{
@@ -199,12 +205,12 @@ backgroundColor : "darkGray",
   },
 
   button : {
-    backgroundColor : '#c2f7e8',
+    backgroundColor : '#2e294e',
     alignItems : "center",
-   borderRadius : 50,
+   borderRadius : 3,
     padding : 10,
     margin: 20,
-    width : "50%",
+    width : "25%",
     shadowColor: "#000",
     shadowOffset: { width: 2, height: 2 },
     shadowOpacity: 0.5,
@@ -213,12 +219,12 @@ backgroundColor : "darkGray",
 
   buttonGoogle  : {
 
-    backgroundColor : '#c2f7e8',
+    backgroundColor : '#e54b4b',
     alignItems : "center",
-    borderRadius : 50,
+    borderRadius : 3,
      padding : 5,
      margin: 20,
-     width : "30%",
+     width : "20%",
      shadowColor: "#000",
      shadowOffset: { width: 2, height: 2 },
      shadowOpacity: 0.5,
@@ -228,14 +234,14 @@ backgroundColor : "darkGray",
  
   buttonFb : {
     
-    flexDirection  : "row  ",
-    backgroundColor : '#c2f7e8',
+
+    backgroundColor : '#004e98',
     alignItems : "center",
     justifyContent : "center",
-    borderRadius : 50,
+    borderRadius : 3,
      padding :5 ,
      margin: 20,
-     width : "30%",
+     width : "20%",
      shadowColor: "#000",
      shadowOffset: { width: 2, height: 2 },
      shadowOpacity: 0.5,
@@ -261,8 +267,10 @@ backgroundColor : "darkGray",
 
   },
 buttonText : {
-  color : "dark",
+  color : "white",
   fontSize : 16,
+  fontWeight : "bold",
+  
 },
 
 choiceText : {

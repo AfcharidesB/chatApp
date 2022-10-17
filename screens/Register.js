@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import {  TextInput, StyleSheet, View, Text, TouchableOpacity  } from 'react-native'
+import {  TextInput, StyleSheet, View, Text, TouchableOpacity } from 'react-native'
 import {signUp,login, logout, useAuth, auth, db, storage} from "./firebase"
 import{ setDoc, doc} from 'firebase/firestore'
 import App from "../App";
 import { useNavigation } from "@react-navigation/native";
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { updateProfile } from "firebase/auth";
+import { Button } from "react-native-web";
 const LoginScreen = () => {
 
 const [email, setEmail] = useState ('')
@@ -89,10 +90,10 @@ async function Signin (){
     
     <View>
 
-      
+       
         <View style={styles.container}>
     <Text style={styles.textTitle}>Créer un compte</Text>
-    <TextInput type="file" placeholder="Photo"></TextInput>
+   
     <TextInput placeholder="Nom d'utilisateur" style={styles.input} value = {name} onChangeText = {text => setName(text)}/>
      <TextInput placeholder="Email" style={styles.input} value = {email} onChangeText = {text => setEmail(text)}>
 

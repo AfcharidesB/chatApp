@@ -15,23 +15,14 @@ const SendMessage = ({}) => {
 
              return
         } 
-         
-         
-        
-
-
-
         const {uid, displayName}=  auth.currentUser
         await addDoc(collection(db, 'messages'), {
             text:input,   
             name:displayName,
             uid,
             timestamp: serverTimestamp(),
-          
         })
-  
         setinput('')
-      
     }
   return (
     

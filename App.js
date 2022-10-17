@@ -6,7 +6,7 @@ import UserProfil from './screens/UserProfil';
 import ChatScreen from './screens/ChatScreen';
 import Register from './screens/Register'
 import ChatRoom from './screens/ChatRoom';
-
+import Home from './screens/Home';
 import { useContext } from 'react';
 import { AuthProvider, AuthContext  } from './screens/AuthContext';
 import Users from './screens/Users';
@@ -30,11 +30,12 @@ const App = () => {
       <AuthProvider>
       <Stack.Navigator  >
       
-   
-      <Stack.Screen  name="Accueil"component={LoginScreen} options ={{headerShown: false}} />
+        
+      <Stack.Screen  name="Login"component={LoginScreen} options ={{headerShown: false}} />
        <Stack.Screen name="Register" component={Register} />
-       <Stack.Screen name="ChatRoom" component={ChatRoom} />
-     <Stack.Screen name="Profile" component={UserProfil}  />
+      <Stack.Screen name="Home" component={Home} />
+    <Stack.Screen name="ChatRoom" component={ChatRoom} />
+    <Stack.Screen name="Profile" component={UserProfil}  />
       <Stack.Screen name="Chat" component={ChatScreen} />
          <Stack.Screen name="UserList" component={Users} />
      

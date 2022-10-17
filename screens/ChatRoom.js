@@ -1,71 +1,62 @@
 import { View, Text , StyleSheet } from 'react-native'
 import React from 'react'
-import { TextInput, Button} from 'react-native-web'
+import { TextInput, Button, TouchableHighlight, Animated} from 'react-native-web'
 import { useState } from 'react'
 import { collection, query, where, getDocs, setDoc, updateDoc, doc, serverTimestamp, getDoc, } from "firebase/firestore";
 import{db, auth} from './firebase'
 import { TouchableOpacity } from 'react-native';
+import { AntDesign } from '@expo/vector-icons';
 import { useContext } from 'react';
 import { AuthContext } from './AuthContext';
+import { Entypo } from '@expo/vector-icons';
 const ChatRoom = () => {
     const [username, setUsername] = useState("")
     const [user, setUser] = useState([null])
     const {currentUser}= useContext(AuthContext)
    const handleSearch = async () => {
-    const q = query(collection(db, "userChats"), where("uid", 'not-in'  [auth.currentUser.uid]))
+    const q = query(collection(db, "userChats"), where("displayName", '==', username))
 
     try {
         const querySnapshot = await getDocs(q);
         querySnapshot.forEach((doc) => {
         setUser(doc.data())
         console.log(doc.id, " => ", doc.data());
+       
+       
 });
     } catch (error) {
         
     }
-   
+
    }
 
-   const handleSelect = async () => {
-    
-   /* const combinedId = currentUser.uid > user.uid ? currentUser.uid + user.uid : user.uid + currentUser.uid 
-    try {
-         const res = await getDoc(doc(db,"chats", combinedId))
-         if(!res.exists()){
-         
-            await updateDoc(doc(db,"userChats", currentUser.uid), where("displayName" , '!=', displayName)),{
-            [combinedId+".userInfo"]: {
-                uid:user.uid,
-                displayName:user.displayName},
-            [combinedId+".date"]: serverTimestamp()
-         
-           },
-           await updateDoc(doc(db,"userChats", user.uid)),{
-            [combinedId+".userInfo"]: {
-                uid:currentUser.uid,
-                displayName:currentUser.displayName},
-            [combinedId+".date"]: serverTimestamp()
-           }
-        await setDoc(doc(db,"chats", combinedId), {messages : []});
-           
-         }
-         console.log(res)
-    } catch (error) {
-        
-    }
-   setUser(null)
-   setUsername("")*/
-   }
-   
 
   return (
     <View>
-      <Text>ChatRoom</Text>
-      <TextInput placeholder="Recherche"  type="text" onChangeText={text => setUsername(text)}></TextInput>
-      <Button title="Recherche" onPress={handleSearch} />
+
+
+    <View >
+        <TouchableHighlight
+        activeOpacity={1}
+        underlayColor={'#ccd0d5'}
+        onPress={handleSearch}
+        style={styles.search_icon_box}
+        >
+            <AntDesign name="search1" size={24} color="black"  />
+            
+        </TouchableHighlight>
+
+      
+
+    
+      <TextInput style={styles.input} placeholder="Trouver un utilisateur"   type="text" onChangeText={text => setUsername(text)} >
+     
+      </TextInput>
        
+      <Button title="Rechercher"  />
+     </View>
         <View>
-            <TouchableOpacity onPress={handleSelect}>
+            <TouchableOpacity onPress={{}}>
         {user&& <Text style ={styles.result}>{user.displayName}</Text>}
             </TouchableOpacity>
         </View>
@@ -76,11 +67,45 @@ const ChatRoom = () => {
 }
 
 const styles = StyleSheet.create({
-    result:{
-      
+   input : {
        
-       
-    }
+        fontSize : 16  ,
+        opacity : 0.4,
+        height : 40,
+        borderRadius :5 , 
+        marginVertical : 10,
+        color :"grey" ,
+        background : "none",
+        backgroundColor : "white",
+        padding : 10,
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 3.84,
+    
+        
+     
+      }, 
+      search_icon_box:{
+        width :40,
+        height :40,
+        borderRadius :40,
+        backgroundColor: '#e4e6eb',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+      },
+      input_box:{
+        height :50,
+        flexDirection:'row',
+        alignItems : 'center',
+        position:'absolute',
+        top: 0,
+        left: 0,
+        backgroundColor:"white",
+        //width: width - 32
+      },
+   
 })
 
 

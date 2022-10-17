@@ -5,9 +5,14 @@ import {signUp,login, logout, useAuth, signInWithGoogle, signInwithFacebook} fro
 import App from "../App";
 import { useNavigation } from "@react-navigation/native";
 import ChatScreen from './ChatScreen';
-
+import ChatRoom from "./ChatRoom";
 const UserProfil = () => {
     const navigation = useNavigation();
+
+
+    
+
+
     useLayoutEffect(() =>navigation.setOptions({
       headerLeft: () =>(
         <TouchableOpacity onPress={Logout} style={{marginLeft:10}}>
@@ -47,9 +52,14 @@ const UserProfil = () => {
     return(
 
         <View style={styles.bg}>
-          <View style = {styles.components}>
-            <Image source={require('../assets/man.png')} style={styles.avatar} />
-            <ChatScreen style = {styles.chatscreen}></ChatScreen>
+          <ChatRoom></ChatRoom>
+          <View style = {styles.components} >
+
+            
+               <Image source={require('../assets/man.png')} style={styles.avatar}  />
+        
+          
+           
               
           </View>
            
@@ -59,12 +69,12 @@ const UserProfil = () => {
           
           
              
-            <Text style={styles.name}>Afcharides Botsy</Text>
+          
             <AntDesign name="calendar" size={40} color="#28e6b4" style={styles.calendar} />
        
             <AntDesign name="mail" size={40} color="#28e6b4" style={styles.mail}/>
             <Text>{currentUser ?.email}</Text>
-            <Text>{currentUser ?.name}</Text>
+           
 
            
          

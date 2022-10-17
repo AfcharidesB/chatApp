@@ -1,62 +1,26 @@
-import { View, Text, TouchableOpacity } from 'react-native'
-import React,{useEffect, useState} from 'react'
-import{db, auth} from './firebase'
-import { collection, query, where, getDocs, setDoc, updateDoc, doc, serverTimestamp, getDoc, onSnapshot, QuerySnapshot} from "firebase/firestore";
-import { useContext } from 'react';
-import { AuthContext } from './AuthContext';
-import UserList from './UserList';
-import { async } from '@firebase/util';
-
-const Users = () => {
-    const [users, setUsers] = useState([])
-    const {currentUser}= useContext(AuthContext)
-    useEffect(()=>{
-        const userRef = collection(db, "userChats")
-        const q = query(userRef, where("uid", 'not-in', [auth.currentUser.uid]))
-
-        const unsub = onSnapshot(q,(querySnapshot)=>{
-            let users = []
-            querySnapshot.forEach((doc)=>{
-                users.push(doc.data())
-            })
-            setUsers(users)
-        })
-        return() =>unsub()
-    },[])
-      console.log(users);   
-
-     async function createRoom() {
-        const {uid}=  auth.currentUser
-        await setDoc(doc(db, "userChats", uid), {
-           uid
-          
-            
-          });
-      }
-          
-       
-      
-       
-        
-      
-       
-   
-  
-
-
-  return (
+import React from 'react';
+import { View, StyleSheet, Text } from 'react-native'
+const User = ({user, selectUser}) =>{
+  return(
     <View>
-    
-       
-        <TouchableOpacity>
-          {users.map((user)=>
-                  <Text> {user.displayName}</Text> 
-                    )}
-        </TouchableOpacity>
+        <Text style={styles.userList} onPress={()=>selectUser(user)} >{user.displayName}</Text>
     </View>
-    
   )
-   
 }
 
-export default Users
+
+const styles = StyleSheet.create({
+  userList:{
+    color:"dark",
+    fontSize:15,
+    padding:10,
+    borderBottomColor : "#343a40",
+    borderBottomWidth : "1px",
+    alignItems : "center",
+    textAlign : "center",
+    marginTop : 60,
+    
+    
+  },
+})
+export default User

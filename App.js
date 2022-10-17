@@ -10,6 +10,7 @@ import Home from './screens/Home';
 import { useContext } from 'react';
 import { AuthProvider, AuthContext  } from './screens/AuthContext';
 import Users from './screens/Users';
+import Salon from './screens/Salon';
 
 
  
@@ -38,6 +39,7 @@ const App = () => {
     <Stack.Screen name="Profile" component={UserProfil}  />
       <Stack.Screen name="Chat" component={ChatScreen} />
          <Stack.Screen name="UserList" component={Users} />
+         <Stack.Screen name="Salon" component={Salon} />
      
 
 

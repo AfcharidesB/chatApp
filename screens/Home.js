@@ -4,7 +4,7 @@ import{db, auth} from './firebase'
 import React,{useEffect, useState} from 'react'
 import { AntDesign } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-web';
-
+import { Ionicons } from '@expo/vector-icons';
 import UserList from './UserList';
 import { useContext } from 'react';
 import { AuthContext } from './AuthContext';
@@ -13,6 +13,9 @@ import MessageForm from './MessageForm';
 import MessagesText from './MessagesText';
 import Users from './Users';
 import { message } from 'antd';
+import { async } from '@firebase/util';
+import Salon from './Salon';
+import { useNavigation } from "@react-navigation/native";
 const Home = () => {
     const [users, setUsers] = useState([])
     const [chat, setChat] = useState("") 
@@ -45,7 +48,7 @@ const Home = () => {
        
         const user2 = user.uid
         const id =  user1 > user2 ?  user1 + user2 : user2 + user1
-        const msgRef = collection(db, 'messages',id, 'chat')
+        const msgRef = collection(db, 'messages', id, 'chat')
         const q = query(msgRef, orderBy('createdAt','asc'))
 
         onSnapshot(q,querySnapshot=>{
@@ -57,12 +60,31 @@ const Home = () => {
         
         })
 
-        const docRef = doc(db, "messages", "chat");
-        const docSnap =  getDoc(docRef);
-        console.log(docSnap)
-
          
       };
+const navigation = useNavigation();
+      const emptyChatroom = async ()=>{
+        
+       
+       /* setChat(user)
+       
+        const user2 = chat.uid
+        await addDoc(collection(db, 'chatRoom'), {
+          text,
+          createdAt : Timestamp.fromDate(new Date())
+        })*/
+        
+        
+      }
+
+      const joinChatroom = async(e) =>{
+        await addDoc(collection(db, 'messages'), {
+          text,
+          
+          createdAt : Timestamp.fromDate(new Date())
+        })
+        setText("");
+      }
       
       console.log(msgs) 
       const handleSubmit = async (e) =>{
@@ -72,7 +94,7 @@ const Home = () => {
         const id = user1 > user2 ?  user1 + user2 : user2 + user1                                               
         // user1 + user2 : user2 + user1
        // `${user1 + user2} ` : `${user2 + user1} `
-        await addDoc(collection(db, 'messages',id, 'chat'), {
+        await addDoc(collection(db, 'messages', id, 'chat'), {
           text,
           from : user1,
           to: user2,
@@ -101,9 +123,17 @@ const Home = () => {
                 <ChatRoom></ChatRoom>
                 {users.map((user)=>
                   <Users  onPress={selectUser} selectUser={selectUser}  key={user.uid} user={user}>  </Users> 
+                  
                     )}
-                    
+                    <TouchableOpacity onPress={{}}>
+                      <Ionicons name="add" size={22} color="white" />
+                    </TouchableOpacity>
+                     
             </View>
+
+            <TouchableOpacity onPress={emptyChatroom }>
+        <Text>Salon </Text>
+      </TouchableOpacity>
         </View>
 
       </View>
@@ -122,13 +152,16 @@ const Home = () => {
 
           :( <Text> Choississer un utilisateur</Text>)
         }
-
-
-      
-      
+<>
+ <Salon joinChatroom={joinChatroom} text={text} setText={setText}></Salon>
+</>
        
-                
+     
       </View>
+
+
+
+    
    
       
     </View>

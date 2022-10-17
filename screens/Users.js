@@ -1,9 +1,11 @@
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native'
+
 const User = ({user, selectUser}) =>{
   return(
     <View>
         <Text style={styles.userList} onPress={()=>selectUser(user)} >{user.displayName}</Text>
+       
     </View>
   )
 }

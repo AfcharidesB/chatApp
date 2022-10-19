@@ -43,7 +43,7 @@ const Home = () => {
     const selectUser =(user)=>{
         setChat(user)
        
-        console.log(user)
+        console.log(user.displayName)
 
        
         const user2 = user.uid
@@ -62,29 +62,19 @@ const Home = () => {
 
          
       };
+
+     
+   
 const navigation = useNavigation();
       const emptyChatroom = async ()=>{
         
        
-       /* setChat(user)
-       
-        const user2 = chat.uid
-        await addDoc(collection(db, 'chatRoom'), {
-          text,
-          createdAt : Timestamp.fromDate(new Date())
-        })*/
+       navigation.navigate("Salon")
         
         
       }
 
-      const joinChatroom = async(e) =>{
-        await addDoc(collection(db, 'messages'), {
-          text,
-          
-          createdAt : Timestamp.fromDate(new Date())
-        })
-        setText("");
-      }
+    
       
       console.log(msgs) 
       const handleSubmit = async (e) =>{
@@ -111,7 +101,7 @@ const navigation = useNavigation();
                 <AntDesign name="user" color="#6c757d" size={24} style={styles.user}  onPress={{}}/>
           
            
-                 <AntDesign name="message1" size={24} color="#6c757d" style={styles.message}  onPress={{}}/>
+                 <AntDesign name="message1" size={24} color="#6c757d" style={styles.message}  onPress={emptyChatroom}/>
             
         </View>
       <View style={styles.sideBar1}> 
@@ -131,9 +121,6 @@ const navigation = useNavigation();
                      
             </View>
 
-            <TouchableOpacity onPress={emptyChatroom }>
-        <Text>Salon </Text>
-      </TouchableOpacity>
         </View>
 
       </View>
@@ -152,9 +139,7 @@ const navigation = useNavigation();
 
           :( <Text> Choississer un utilisateur</Text>)
         }
-<>
- <Salon joinChatroom={joinChatroom} text={text} setText={setText}></Salon>
-</>
+
        
      
       </View>
